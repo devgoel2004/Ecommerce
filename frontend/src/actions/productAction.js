@@ -34,12 +34,12 @@ export const getProductDetails = (id) => async (dispatch) => {
       `http://localhost:4000/api/v1/product/${id}`
     );
     dispatch({
-      type: ALL_PRODUCT_SUCCESS,
+      type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
     });
   } catch (error) {
     dispatch({
-      type: ALL_PRODUCT_FAIL,
+      type: PRODUCT_DETAILS_FAIL,
       payload: error.response,
     });
   }

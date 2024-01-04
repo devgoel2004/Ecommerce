@@ -5,7 +5,6 @@ import WebFont from "webfontloader";
 import Footer from "./components/Layout/Footer/Footer";
 import React, { useEffect } from "react";
 import Home from "./components/Home/Home";
-import Loader from "./components/Layout/Loader/Loader";
 import ProductDetails from "./components/Product/ProductDetails";
 function App() {
   useEffect(() => {

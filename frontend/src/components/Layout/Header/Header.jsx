@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css"; // Import your CSS file for styling
-
+import { Link } from "react-router-dom";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -18,12 +18,19 @@ const Header = () => {
         <i className="fa-solid fa-user font-icon"></i>
       </div>
       <ul className={showMenu ? "nav-menu active" : "nav-menu"}>
-        <li className="nav-item">Home</li>
-        <li className="nav-item">Product</li>
-        <li className="nav-item">Contact</li>
-        <li className="nav-item">About</li>
+        <Link className="link-to" to="/">
+          <li className="nav-item">Home</li>
+        </Link>
+        <Link to="/product" className="link-to">
+          <li className="nav-item">Product</li>
+        </Link>
+        <Link to="/contact" className="link-to">
+          <li className="nav-item">Contact</li>
+        </Link>
+        <Link to="/about" className="link-to">
+          <li className="nav-item">About</li>
+        </Link>
       </ul>
-
       <div className="menu-icon" onClick={toggleMenu}>
         <i className={showMenu ? "fas fa-times" : "fas fa-bars"}></i>
       </div>
