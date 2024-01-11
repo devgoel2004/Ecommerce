@@ -40,9 +40,10 @@
 .navigation-icon {
   display: flex;
 }
-.navigation-icon i {
+.navigation-icon a i {
   padding: 2px;
   margin-top: 4px;
+  color: white;
 }
 .input-font {
   width: 35vw;

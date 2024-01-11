@@ -13,9 +13,15 @@ const Header = () => {
       <div className="navbar-logo">SwiftBuy</div>
       <div className="navigation-icon">
         <input type="text" className="input-font" placeholder="Search...." />
-        <i className="fa-solid fa-magnifying-glass font-icon"></i>
-        <i className="fa-solid fa-cart-shopping font-icon"></i>
-        <i className="fa-solid fa-user font-icon"></i>
+        <Link to="/search">
+          <i className="fa-solid fa-magnifying-glass font-icon"></i>
+        </Link>
+        <Link to="/">
+          <i className="fa-solid fa-cart-shopping font-icon"></i>
+        </Link>
+        <Link to="/">
+          <i className="fa-solid fa-user font-icon"></i>
+        </Link>
       </div>
       <ul className={showMenu ? "nav-menu active" : "nav-menu"}>
         <Link className="link-to" to="/">
