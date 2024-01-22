@@ -19,7 +19,7 @@ const Header = () => {
         <Link to="/">
           <i className="fa-solid fa-cart-shopping font-icon"></i>
         </Link>
-        <Link to="/">
+        <Link to="/login">
           <i className="fa-solid fa-user font-icon"></i>
         </Link>
       </div>
@@ -27,7 +27,7 @@ const Header = () => {
         <Link className="link-to" to="/">
           <li className="nav-item">Home</li>
         </Link>
-        <Link to="/product" className="link-to">
+        <Link to="/products" className="link-to">
           <li className="nav-item">Product</li>
         </Link>
         <Link to="/contact" className="link-to">

@@ -10,9 +10,7 @@ import { useAlert } from "react-alert";
 const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, error, product, productsCount } = useSelector(
-    (state) => state.products
-  );
+  const { loading, error, product } = useSelector((state) => state.products);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -26,7 +24,7 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="HOME PAGE" />
+          <MetaData title="WELCOME TO -- SWIFTBUY" />
           <div className="banner">
             <p>Welcome To SwiftBuy</p>
             <h1>FIND AMAZING PRODUCTS BELOW</h1>

@@ -8,12 +8,25 @@ import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
-const Product = ({ match }) => {
+import { useAlert } from "react-alert";
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Bottom",
+  "Tops",
+  "Attire",
+  "Camera",
+  "Smartphones",
+];
+const Product = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const alert = useAlert();
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 100000]);
-  const { product, loading, error, productsCount, resultPerPage  } = useSelector(
+  const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState(0);
+  const { product, loading, error, productsCount, resultPerPage } = useSelector(
     (state) => state.products
   );
   const setCurrentPageNo = (e) => {
@@ -23,10 +36,10 @@ const Product = ({ match }) => {
     setPrice(newPrice);
   };
   const keyword = params.keyword;
-
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price));
-  }, [dispatch, keyword, currentPage, price]);
+    alert.error(error);
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
   return (
     <Fragment>
       {loading ? (
@@ -35,6 +48,10 @@ const Product = ({ match }) => {
         <Fragment>
           <h2 className="productsHeading">Products</h2>
           <div className="products">
+            {product &&
+              product.map((product) => (
+                <ProductCard product={product} key={product.id} />
+              ))}
             <div className="filterBox">
               <Typography>Price</Typography>
               <Slider
@@ -45,11 +62,30 @@ const Product = ({ match }) => {
                 min={0}
                 max={100000}
               />
+              <Typography>Categories</Typography>
+              <ul className="categoryBox">
+                {categories.map((category) => (
+                  <li
+                    className="category-link"
+                    key={category}
+                    onClick={() => setCategory(category)}>
+                    {category}
+                  </li>
+                ))}
+              </ul>
+              <fieldset>
+                <Typography component="legend">Rating Above</Typography>
+                <Slider
+                  value={ratings}
+                  onChange={(e, newRating) => {
+                    setRatings(newRating);
+                  }}
+                  aria-labelledby="continous-slider"
+                  min={0}
+                  max={5}
+                  valueLabelDisplay="auto"></Slider>
+              </fieldset>
             </div>
-            {product &&
-              product.map((product) => (
-                <ProductCard product={product} key={product.id} />
-              ))}
           </div>
           {resultPerPage < productsCount && (
             <div className="paginationBox">

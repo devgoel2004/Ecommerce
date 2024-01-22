@@ -56,10 +56,12 @@ userSchema.methods.getJWTToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
 //compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
 //Generating Password reset token
 userSchema.methods.getResetPasswordToken = function () {
   //Generate token
