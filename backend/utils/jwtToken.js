@@ -8,8 +8,6 @@ const sendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  console.log(token);
-  // Cookies.set("token", token, { expires: 5, secure: true });
   res.cookie("token", token, options);
   res.status(statusCode).json({
     success: true,

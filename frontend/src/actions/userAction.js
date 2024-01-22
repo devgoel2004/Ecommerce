@@ -9,6 +9,8 @@ import {
   LOAD_USER_FAIL,
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
+  LOGOUT_FAIL,
+  LOGOUT_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -55,9 +57,6 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
     const token = Cookies.get("token");
-    if (!token) {
-      throw new Error("Token not found");
-    }
     const { data } = await axios.get(`http://localhost:4000/api/v1/me`, {
       headers: {
         Authorization: `${token}`,
@@ -66,8 +65,18 @@ export const loadUser = () => async (dispatch) => {
     console.log(data);
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
-    console.log(error.response);
     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+  }
+};
+
+//Logout User
+export const logout = () => async (dispatch) => {
+  try {
+    Cookies.remove("token");
+    await axios.get(`http://localhost:4000/api/v1/logout`);
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
   }
 };
 

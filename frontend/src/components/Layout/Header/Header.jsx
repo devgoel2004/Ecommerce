@@ -10,7 +10,9 @@ const Header = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">SwiftBuy</div>
+      <Link to="/">
+        <div className="navbar-logo">SwiftBuy</div>
+      </Link>
       <div className="navigation-icon">
         <input type="text" className="input-font" placeholder="Search...." />
         <Link to="/search">

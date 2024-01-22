@@ -9,6 +9,11 @@
   -moz-box-shadow: 0px 7px 29px -7px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 7px 29px -7px rgba(0, 0, 0, 0.75);
 }
+.navbar > a {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
 
 .navbar-logo {
   font-size: 2rem;
@@ -20,15 +25,12 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  /* color: white; */
 }
 .link-to {
   color: white;
   text-decoration: none;
 }
 .nav-item {
-  /* color: white; */
-  /* text-decoration: none; */
   padding: 10px;
   cursor: pointer;
 }
@@ -51,6 +53,16 @@
   padding-left: 10px;
   border-radius: 20px;
 }
+.speedDial {
+  position: fixed;
+  right: 1vmax;
+  top: 5vmax;
+}
+.speedDialIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+}
 @media screen and (max-width: 768px) {
   .nav-menu {
     display: none;
@@ -69,5 +81,10 @@
   }
   .input-font {
     display: none;
+  }
+  .speedDial {
+    position: fixed;
+    right: 1vmax;
+    top: 12%;
   }
 }
