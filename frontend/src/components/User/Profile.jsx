@@ -3,6 +3,7 @@ import MetaData from "../Layout/MetaData";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loader from "../Layout/Loader/Loader";
+import Footer from "../Layout/Footer/Footer";
 import "./Profile.css";
 const Profile = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Profile = () => {
               </div>
               <div>
                 <h4>Joined On</h4>
-                <p>{String(user.createAt).substr(0, 10)}</p>
+                <p>{String(user.createdAt).substr(0, 10)}</p>
               </div>
               <div>
                 <Link to="/orders">My Orders</Link>
