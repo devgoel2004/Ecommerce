@@ -1,0 +1,29 @@
+.errorPage {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.errorIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.errorBtn {
+  display: flex;
+  justify-content: center;
+}
+.errorBtn > a > button {
+  padding: 8px 18px;
+  background-color: rgba(81, 79, 79, 0.54);
+  color: white;
+  border: none;
+  font-family: "Poppins";
+  cursor: pointer;
+}
+.errorHeading {
+  color: rgba(81, 79, 79, 0.54);
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 500;
+}

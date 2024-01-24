@@ -1,9 +1,10 @@
-import Header from "./components/Layout/Header/Header";
+import React, { useEffect } from "react";
 import "./App.css";
+import store from "./store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Layout/Header/Header";
 import WebFont from "webfontloader";
 import Footer from "./components/Layout/Footer/Footer";
-import React, { useEffect } from "react";
 import Home from "./components/Home/Home";
 import ProductDetails from "./components/Product/ProductDetails";
 import Product from "./components/Product/Product";
@@ -11,15 +12,15 @@ import Search from "./components/Product/Search";
 import LoginSignup from "./components/User/LoginSignup";
 import Profile from "./components/User/Profile";
 import { loadUser } from "./actions/userAction";
-import store from "./store";
 import UserOptions from "./components/Layout/Header/UserOptions";
 import UpdateProfile from "./components/User/UpdateProfile";
 import { useSelector } from "react-redux";
-import ProtectRoute from "./components/Route/ProtectRoute";
+import UpdatePassword from "./components/User/UpdatePassword";
+import Error from "./components/Error/Error";
+import ForgetPassword from "./components/User/ForgetPassword";
+import ResetPassword from "./components/User/ResetPassword";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  const url = window.location.href;
-  console.log(url);
   useEffect(() => {
     WebFont.load({
       google: {
@@ -35,20 +36,24 @@ function App() {
         <Header />
         {isAuthenticated && <UserOptions user={user} />}
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route exact path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/products" element={<Product />} />
-          <Route path="/products/:keyword" element={<Product />}></Route>
-          <Route path="/search" element={<Search />} />
-          <Route path="/login" element={<LoginSignup />} />
+          <Route exact path="/products" element={<Product />} />
+          <Route path="/products/:keyword" element={<Product />} />
+          <Route exact path="/search" element={<Search />} />
+          <Route exact path="/login" element={<LoginSignup />} />
           {isAuthenticated ? (
             <>
-              <Route path="/account" element={<Profile />} />
-              <Route path="/me/update" element={<UpdateProfile />} />
+              <Route exact path="/account" element={<Profile />} />
+              <Route exact path="/me/update" element={<UpdateProfile />} />
             </>
           ) : (
             <></>
           )}
+          <Route exact path="/password/update" element={<UpdatePassword />} />
+          <Route exact path="/password/forget" element={<ForgetPassword />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
       </Router>

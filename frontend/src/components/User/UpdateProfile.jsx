@@ -17,9 +17,8 @@ const UpdateProfile = () => {
   const { error, loading, isUpdated } = useSelector((state) => state.profile);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
-  const [avatar, setAvatar] = useState("/Profile.png");
-  const [avatarPreview, setAvatarPreview] = useState("/profile.png");
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState("");
   const updateProfileSubmit = (e) => {
     e.preventDefault();
     const myForm = new FormData();

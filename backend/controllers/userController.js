@@ -8,22 +8,27 @@ const cloudinary = require("cloudinary");
 
 //Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "avatars",
-    width: 150,
-    crop: "scale",
-  });
-  const { name, email, password } = req.body;
-  const user = await User.create({
-    name,
-    email,
-    password,
-    avatar: {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    },
-  });
-  sendToken(user, 201, res);
+  try {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    const { name, email, password } = req.body;
+    const user = await User.create({
+      name,
+      email,
+      password,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    });
+    sendToken(user, 201, res);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //LOGIN USER
@@ -67,9 +72,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetPasswordUrl = `http://localhost:3000/password/reset/${resetToken}`;
 
   const message = `Your Password reset token is:- \n\n ${resetPasswordUrl} \n\n If you have not requested this email then, please ignore it`;
   try {
@@ -146,28 +149,33 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 //UPDATE USER PASSWORD
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
-  const newUserData = {
-    name: req.body.name,
-    email: req.body.email,
-  };
-
-  if (req.body.avatar !== "") {
-    const user = await User.findById(req.user.id);
-
-    const imageId = user.avatar.public_id;
-
-    await cloudinary.v2.uploader.destroy(imageId);
-
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: "avatars",
-      width: 150,
-      crop: "scale",
-    });
-
-    newUserData.avatar = {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
+  try {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
     };
+    if (req.body.avatar !== "") {
+      const user = await User.findById(req.user.id);
+      const imageId = user.avatar.public_id;
+      await cloudinary.v2.uploader.destroy(imageId);
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale",
+      });
+      newUserData.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      };
+    }
+    await User.findByIdAndUpdate(req.user.id, newUserData);
+    res.status(200).json({
+      success: true,
+      message: "Profile updated",
+    });
+  } catch (error) {
+    console.log(error);
+    next();
   }
 });
 
