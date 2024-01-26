@@ -147,11 +147,9 @@ export const updatePassword = (password) => async (dispatch) => {
 export const forgetPassword = (email) => async (dispatch) => {
   try {
     dispatch({ type: FORGET_PASSWORD_REQUEST });
-    const token = Cookies.get("token");
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
       },
     };
     const { data } = await axios.post(
@@ -159,7 +157,7 @@ export const forgetPassword = (email) => async (dispatch) => {
       email,
       config
     );
-    dispatch({ type: FORGET_PASSWORD_SUCCESS, payload: data.error });
+    dispatch({ type: FORGET_PASSWORD_SUCCESS, payload: data.message });
   } catch (error) {
     dispatch({
       type: FORGET_PASSWORD_FAIL,

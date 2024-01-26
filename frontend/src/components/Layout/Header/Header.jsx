@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Header.css"; // Import your CSS file for styling
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SearchIcon from "@mui/icons-material/Search";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -16,13 +19,19 @@ const Header = () => {
       <div className="navigation-icon">
         <input type="text" className="input-font" placeholder="Search...." />
         <Link to="/search">
-          <i className="fa-solid fa-magnifying-glass font-icon"></i>
+          <SearchIcon
+            style={{ color: "white", marginTop: "2px", fontSize: "1.62rem" }}
+          />
         </Link>
-        <Link to="/">
-          <i className="fa-solid fa-cart-shopping font-icon"></i>
+        <Link to="/cart">
+          <ShoppingCartIcon
+            style={{ color: "white", marginTop: "2px", fontSize: "1.62rem" }}
+          />
         </Link>
         <Link to="/login">
-          <i className="fa-solid fa-user font-icon"></i>
+          <AccountCircleIcon
+            style={{ color: "white", marginTop: "2px", fontSize: "1.62rem" }}
+          />
         </Link>
       </div>
       <ul className={showMenu ? "nav-menu active" : "nav-menu"}>

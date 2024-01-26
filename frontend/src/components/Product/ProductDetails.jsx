@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,10 +9,12 @@ import MetaData from "../Layout/MetaData";
 import ReviewCard from "./ReviewCard";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import { addItemToCart } from "../../actions/cartAction";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { id } = useParams();
+  console.log(id);
   const { success, product, loading, error } = useSelector(
     (state) => state.productDetails
   );
@@ -24,6 +26,20 @@ const ProductDetails = () => {
     value: product.ratings,
     isHalf: true,
   };
+  const [quantity, setQuantity] = useState(1);
+  const increaseQuantity = () => {
+    if (product.Stock <= quantity) return;
+    setQuantity(quantity + 1);
+  };
+  const decreaseQuantity = () => {
+    if (quantity <= 1) return;
+    setQuantity(quantity - 1);
+  };
+  const addToCartHandler = () => {
+    dispatch(addItemToCart(id, quantity));
+    alert.success("Item added to cart");
+  };
+
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -65,11 +81,11 @@ const ProductDetails = () => {
                 <h1>{`$ ${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input type="number" value="1" />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input type="number" readOnly value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>{" "}
-                  <button>Add To Cart</button>
+                  <button onClick={addToCartHandler}>Add To Cart</button>
                 </div>
                 <p>
                   Status:{" "}

@@ -63,7 +63,6 @@ const LoginSignup = () => {
   useEffect(() => {
     if (error) {
       console.log(error);
-      alert.error(error);
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
@@ -123,7 +122,7 @@ const LoginSignup = () => {
                     onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/password/forgot">Forget Password ?</Link>
+                <Link to="/password/forget">Forget Password ?</Link>
                 <input type="submit" value="Login" className="loginBtn" />
               </form>
               {/* Registered Form */}

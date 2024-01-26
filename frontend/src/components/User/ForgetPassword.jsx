@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { clearErrors, forgetPassword } from "../../actions/userAction";
 import MetaData from "../Layout/MetaData";
+import { useNavigate } from "react-router-dom";
 const ForgetPassword = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
-
+  const navigate = useNavigate();
   const { error, message, loading } = useSelector(
     (state) => state.forgetPassword
   );
@@ -27,6 +28,7 @@ const ForgetPassword = () => {
     }
     if (message) {
       alert.success(message);
+      navigate("/login");
     }
   }, [dispatch, error, alert, message]);
   return (
